@@ -3,18 +3,18 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
-    int userSelection;
-    public static ArrayList<Doctor> doctors = new ArrayList<>();
+    static int userSelection;
+//    public static ArrayList<Doctor> doctors = new ArrayList<>();
 
 
-    public void PatientMenu() throws InterruptedException {
+    public static void PatientMenu() throws InterruptedException {
         while(true){
             System.out.println("""
                             
                             Enter 1 to view doctors
-                            Enter 2 to book an appointment
+                            Enter 2 to register patient
                             Enter 3 to view a selected doctor's bookings
-                            Enter 4 to register patient
+                            Enter 4 to book an appointment
                             Enter 5 to exit""");
             System.out.print("Enter input: ");
             userSelection = scanner.nextInt();
@@ -31,7 +31,7 @@ public class Main {
     }
 
 
-    public void HospitalAdministratorMenu() throws InterruptedException {
+    public static void HospitalAdministratorMenu() throws InterruptedException {
         while(true){
             System.out.println("""
                             
@@ -55,7 +55,7 @@ public class Main {
     }
 
 
-    public int MainMenu(){
+    public static int MainMenu(){
         int authorityLevel;
         while(true) {
             System.out.println("""
@@ -81,12 +81,12 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         while (true){
-            Main m = new Main();
-            int authority = m.MainMenu();
+//            Main m = new Main();
+            int authority = MainMenu();
             if (Objects.equals(authority,1)){
-                m.HospitalAdministratorMenu();
+                HospitalAdministratorMenu();
             } else if (authority == 2) {
-                m.PatientMenu();
+                PatientMenu();
             } else if (authority == 3) {
                 System.exit(0);
             }

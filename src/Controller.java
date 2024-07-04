@@ -6,23 +6,20 @@ public class Controller {
     static Scanner scanner = new Scanner(System.in);
     static int userSelection;
     public static ArrayList<Doctor> doctors = new ArrayList<>();
+    public static ArrayList<Patient> patients = new ArrayList<>();
 
     // Admin related methods
     public static void addDoctor(){
-        String docName;
-        String docContactNumber;
-        String docBirthday;
-        String docSpecialization;
         Random random = new Random();
         while(true){
             System.out.print("Enter Doctors name: ");
-            docName = scanner.next();
+            String docName = scanner.next();
             System.out.print("Enter Doctors birthday: ");
-            docBirthday = scanner.next();
+            String docBirthday = scanner.next();
             System.out.print("Enter Doctors specialization: ");
-            docSpecialization = scanner.next();
+            String docSpecialization = scanner.next();
             System.out.print("Enter Doctors contact: ");
-            docContactNumber = scanner.next();
+            String docContactNumber = scanner.next();
             System.out.print("""
                     
                     Do you wish to proceed with this information? (Y/N) >""");
@@ -102,7 +99,28 @@ public class Controller {
         scanner.nextLine();
     }
 
+    public static void addNewPatient(){
+        System.out.print("Enter patient name: ");
+        String name = scanner.next();
+        System.out.print("Enter patient ID: ");
+        String patientId = scanner.next();
+        System.out.print("Enter patient birth date: ");
+        String birthdate = scanner.next();
+        System.out.print("Enter patient contact number: ");
+        long contact = scanner.nextLong();
 
+        System.out.print("""
+                    
+                    Do you wish to proceed with this information? (Y/N) >""");
+        String yesOrNo = scanner.next();
+        if (Objects.equals(yesOrNo, "Y") || Objects.equals(yesOrNo, "y")){
+            Patient patient = new Patient(name, patientId, birthdate, contact);
+            patients.add(patient);
+            System.out.println("Patient successfully registered!");
+        } else {
+            System.out.println("Patient was not registered.");
+        }
+    }
 
 
 
