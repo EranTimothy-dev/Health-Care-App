@@ -26,6 +26,10 @@ public class Main {
                 break;
             } else if (userSelection == 1) {
                 Controller.viewDoctors();
+            } else if (userSelection == 2) {
+                Controller.addNewPatient();
+            } else if (userSelection == 4) {
+                Controller.bookAppointment();
             }
         }
     }
@@ -80,8 +84,15 @@ public class Main {
 
 
     public static void main(String[] args) throws InterruptedException {
+
+        // test data
+        Doctor sampleDoc = new Doctor(223,"Saman Kumara","22.05.1987","Gynocologist","077-333-9900");
+        Patient samplePatient = new Patient("T-12", "Alice Johnson", "24/04/2003", "555-123-4567");
+        Controller.doctors.add(sampleDoc);
+        Controller.patients.add(samplePatient);
+
+
         while (true){
-//            Main m = new Main();
             int authority = MainMenu();
             if (Objects.equals(authority,1)){
                 HospitalAdministratorMenu();

@@ -1,3 +1,4 @@
+import javax.print.Doc;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -107,7 +108,7 @@ public class Controller {
         System.out.print("Enter patient birth date: ");
         String birthdate = scanner.next();
         System.out.print("Enter patient contact number: ");
-        long contact = scanner.nextLong();
+        String contact = scanner.next();
 
         System.out.print("""
                     
@@ -121,6 +122,61 @@ public class Controller {
             System.out.println("Patient was not registered.");
         }
     }
+
+
+    // Appointment related methods
+    public static Patient getPatientByID(String id){
+        for (Patient patient: patients){
+            if (Objects.equals(patient.patientId, id)){
+                return patient;
+            }
+        }
+        return null;
+    }
+
+    public static Doctor getDoctorByID(int id){
+        for (Doctor doctor: doctors){
+            if (Objects.equals(doctor.doctorId, id)){
+                return doctor;
+            }
+        }
+        return null;
+    }
+
+    public static void bookAppointment(){
+        System.out.print("Enter Doctor's Id you want to make an appointment: ");
+        int docId = scanner.nextInt();
+        System.out.print("Enter you patient's Id: ");
+        String patientId = scanner.next();
+
+        System.out.print("Enter the Day you want to add Availability: ");
+        String day = scanner.next();
+        System.out.print("Enter the Month you want to add Availability: ");
+        String month = scanner.next();
+        System.out.print("Enter the Year you want to add Availability: ");
+        String year = scanner.next();
+
+        Patient selectedPatient = getPatientByID(patientId);
+        Doctor selectedDoctor = getDoctorByID(docId);
+
+        if(selectedPatient == null){
+            System.out.println("In valid patient ID! patient details could not be retrieved.");
+            return;
+        }else if (selectedDoctor == null){
+            System.out.println("Invalid doctor ID! doctor details could not be retrieved.");
+            return;
+        }
+
+        Date appointmentDate = new Date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+        // check the availability and slots available
+        // calculate the appointment time
+        // make the appointment
+        Appointment appointment = new Appointment(selectedDoctor, selectedPatient, "No notes", appointmentDate, " ");
+        selectedDoctor.setAppointments(appointment, appointmentDate);
+
+
+    }
+
 
 
 

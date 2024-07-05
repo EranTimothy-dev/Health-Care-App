@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class Doctor {
     public int doctorId;
@@ -8,6 +10,7 @@ public class Doctor {
     public String specialization;
     public String contactNumber;
     public ArrayList<Date> availabilities;
+    public HashMap<Date, ArrayList<Appointment>> appointments = new HashMap<>();
 
     public Doctor(int id,String Name, String birthday, String specialization, String contactNumber){
         this.doctorName = Name;
@@ -26,4 +29,18 @@ public class Doctor {
     public void setDoctorAvailability(Date availability ) {
         this.availabilities.add(availability);
     }
+
+    public void setAppointments(Appointment appointment, Date date){
+        ArrayList<Appointment> currentAppointments = this.appointments.get(date);
+        if (currentAppointments == null){
+            ArrayList<Appointment> tempArraylist = new ArrayList<>();
+            tempArraylist.add(appointment);
+            this.appointments.put(date, tempArraylist);
+        }else {
+            currentAppointments.add(appointment);
+            this.appointments.put(date, currentAppointments);
+        }
+    }
+
+
 }
