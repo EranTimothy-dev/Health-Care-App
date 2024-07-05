@@ -60,11 +60,11 @@ public class Controller {
                 break;
             }
             // If doctor does exist set the availability
-            System.out.println("Enter the Day you want to add Availability: ");
+            System.out.print("Enter the Day you want to add Availability: ");
             int day = scanner.nextInt();
-            System.out.println("Enter the Month you want to add Availability: ");
+            System.out.print("Enter the Month you want to add Availability: ");
             int month = scanner.nextInt();
-            System.out.println("Enter the Year you want to add Availability: ");
+            System.out.print("Enter the Year you want to add Availability: ");
             int year = scanner.nextInt();
 
             Date availableDate = new Date(year, month, day);
@@ -95,8 +95,9 @@ public class Controller {
             System.out.println(i + ". " + doctorInfo.doctorName + "(" + doctorInfo.doctorId + ")" + ": " + doctorInfo.specialization + ",\n\t and has a availability of " + doctorInfo.availabilities);
             i++;
         }
-        System.out.print("Press Enter key to exit: ");
-        String leave = scanner.nextLine();
+        System.out.print("Enter any value key to go back: ");
+//        String leave =
+        scanner.nextLine();
         scanner.nextLine();
     }
 
@@ -149,13 +150,6 @@ public class Controller {
         System.out.print("Enter you patient's Id: ");
         String patientId = scanner.next();
 
-        System.out.print("Enter the Day you want to add Availability: ");
-        String day = scanner.next();
-        System.out.print("Enter the Month you want to add Availability: ");
-        String month = scanner.next();
-        System.out.print("Enter the Year you want to add Availability: ");
-        String year = scanner.next();
-
         Patient selectedPatient = getPatientByID(patientId);
         Doctor selectedDoctor = getDoctorByID(docId);
 
@@ -165,13 +159,25 @@ public class Controller {
         }else if (selectedDoctor == null){
             System.out.println("Invalid doctor ID! doctor details could not be retrieved.");
             return;
+        } else {
+            System.out.println("Details found.");
+            System.out.println(" ");
         }
+        System.out.print("Enter the Day you want to add Availability: ");
+        String day = scanner.next();
+        System.out.print("Enter the Month you want to add Availability: ");
+        String month = scanner.next();
+        System.out.print("Enter the Year you want to add Availability: ");
+        String year = scanner.next();
+        System.out.println("Enter any notes you want to add about your appointment below (if not enter 'No Notes'): ");
+        String notes = scanner.next();
+
 
         Date appointmentDate = new Date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
         // check the availability and slots available
         // calculate the appointment time
         // make the appointment
-        Appointment appointment = new Appointment(selectedDoctor, selectedPatient, "No notes", appointmentDate, " ");
+        Appointment appointment = new Appointment(selectedDoctor, selectedPatient, notes, appointmentDate, " ");
         selectedDoctor.setAppointments(appointment, appointmentDate);
 
 
