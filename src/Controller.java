@@ -1,4 +1,3 @@
-import javax.print.Doc;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -6,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 public class Controller {
     static Scanner scanner = new Scanner(System.in);
     static int userSelection;
-    public static ArrayList<Doctor> doctors = new ArrayList<>();
-    public static ArrayList<Patient> patients = new ArrayList<>();
+    public static final ArrayList<Doctor> doctors = new ArrayList<>();
+    public static final ArrayList<Patient> patients = new ArrayList<>();
 
     // Admin related methods
     public static void addDoctor(){
@@ -27,7 +26,7 @@ public class Controller {
             String yesOrNo = scanner.next();
             if (Objects.equals(yesOrNo, "Y") || Objects.equals(yesOrNo, "y")){
                 // Generates positive random number by making the sign bit 0 through bitwise AND operation
-                int docId = random.nextInt() & Integer.MAX_VALUE; //random int & 01111111 11111111 11111111 11111111
+                int docId = random.nextInt() & Integer.MAX_VALUE;
                 Doctor doc = new Doctor(docId,docName,docBirthday,docSpecialization,docContactNumber);
                 doctors.add(doc);
                 System.out.println("Doctor successfully added!");
@@ -50,7 +49,7 @@ public class Controller {
             userSelection = scanner.nextInt();
             Doctor selectedDoctor = null;
             for (Doctor doc : doctors) {
-                if (doc.doctorId == userSelection) {
+                if (doc.getDoctorId() == userSelection) {
                     selectedDoctor = doc;
                 }
             }
@@ -92,7 +91,7 @@ public class Controller {
                 """);
         TimeUnit.SECONDS.sleep(2);
         for(Doctor doctorInfo : doctors){
-            System.out.println(i + ". " + doctorInfo.doctorName + "(" + doctorInfo.doctorId + ")" + ": " + doctorInfo.specialization + ",\n\t and has a availability of " + doctorInfo.availabilities);
+            System.out.println(i + ". " + doctorInfo.getName() + "(" + doctorInfo.getDoctorId() + ")" + ": " + doctorInfo.getSpecialization() + ",\n\t and has a availability of " + doctorInfo.getAvailabilities());
             i++;
         }
         System.out.print("Enter any value key to go back: ");
@@ -137,7 +136,7 @@ public class Controller {
 
     private static Doctor getDoctorByID(int id){
         for (Doctor doctor: doctors){
-            if (Objects.equals(doctor.doctorId, id)){
+            if (Objects.equals(doctor.getDoctorId(), id)){
                 return doctor;
             }
         }
@@ -146,7 +145,7 @@ public class Controller {
 
     // only required to be accessed by method inside the class therefore it is private
     private static boolean checkDoctorAvailability(Doctor doctor,Date date){
-        for (Date available: doctor.availabilities){
+        for (Date available: doctor.getAvailabilities()){
             if (date.equals(available)){
                 return true;
             }
