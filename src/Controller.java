@@ -128,7 +128,7 @@ public class Controller {
     // Appointment related methods
     private static Patient getPatientByID(String id){
         for (Patient patient: patients){
-            if (Objects.equals(patient.patientId, id)){
+            if (Objects.equals(patient.getPatientId(), id)){
                 return patient;
             }
         }
