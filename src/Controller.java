@@ -126,7 +126,7 @@ public class Controller {
 
 
     // Appointment related methods
-    public static Patient getPatientByID(String id){
+    private static Patient getPatientByID(String id){
         for (Patient patient: patients){
             if (Objects.equals(patient.patientId, id)){
                 return patient;
@@ -135,7 +135,7 @@ public class Controller {
         return null;
     }
 
-    public static Doctor getDoctorByID(int id){
+    private static Doctor getDoctorByID(int id){
         for (Doctor doctor: doctors){
             if (Objects.equals(doctor.doctorId, id)){
                 return doctor;
@@ -166,7 +166,8 @@ public class Controller {
         if(selectedPatient == null){
             System.out.println("In valid patient ID! patient details could not be retrieved.");
             return;
-        }else if (selectedDoctor == null){
+        }
+        if (selectedDoctor == null){
             System.out.println("Invalid doctor ID! doctor details could not be retrieved.");
             return;
         } else {
@@ -190,7 +191,7 @@ public class Controller {
             if (slots == -1){
                 System.out.println("No more slots available for that date.");
             }else if (slots<=10){
-                String appointmentTime = String.format("%d PM",slots);
+                String appointmentTime = String.format("%d : 00 PM",slots);
                 Appointment appointment = new Appointment(selectedDoctor, selectedPatient, notes, appointmentDate, appointmentTime);
                 selectedDoctor.setAppointments(appointment, appointmentDate);
             }

@@ -3,7 +3,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
-    static int userSelection;
+    private static int userSelection;
 //    public static ArrayList<Doctor> doctors = new ArrayList<>();
 
 
