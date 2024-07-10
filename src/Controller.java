@@ -144,6 +144,16 @@ public class Controller {
         return null;
     }
 
+    // only required to be accessed by method inside the class therefore it is private
+    private static boolean checkDoctorAvailability(Doctor doctor,Date date){
+        for (Date available: doctor.availabilities){
+            if (date.equals(available)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void bookAppointment(){
         System.out.print("Enter Doctor's Id you want to make an appointment: ");
         int docId = scanner.nextInt();
@@ -163,24 +173,30 @@ public class Controller {
             System.out.println("Details found.");
             System.out.println(" ");
         }
-        System.out.print("Enter the Day you want to add Availability: ");
+        System.out.print("Enter the Day you want to add Appointment: ");
         String day = scanner.next();
-        System.out.print("Enter the Month you want to add Availability: ");
+        System.out.print("Enter the Month you want to add Appointment: ");
         String month = scanner.next();
-        System.out.print("Enter the Year you want to add Availability: ");
+        System.out.print("Enter the Year you want to add Appointment: ");
         String year = scanner.next();
         System.out.println("Enter any notes you want to add about your appointment below (if not enter 'No Notes'): ");
         String notes = scanner.next();
 
-
+        // Check doctor availability and available slots
         Date appointmentDate = new Date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-        // check the availability and slots available
-        // calculate the appointment time
-        // make the appointment
-        Appointment appointment = new Appointment(selectedDoctor, selectedPatient, notes, appointmentDate, " ");
-        selectedDoctor.setAppointments(appointment, appointmentDate);
-
-
+        boolean doctorAvailable = checkDoctorAvailability(selectedDoctor, appointmentDate);
+        if (doctorAvailable){
+            int slots = selectedDoctor.getSlots(appointmentDate);
+            if (slots == -1){
+                System.out.println("No more slots available for that date.");
+            }else if (slots<=10){
+                String appointmentTime = String.format("%d PM",slots);
+                Appointment appointment = new Appointment(selectedDoctor, selectedPatient, notes, appointmentDate, appointmentTime);
+                selectedDoctor.setAppointments(appointment, appointmentDate);
+            }
+        }else {
+            System.out.println("Doctor not available on that date.");
+        }
     }
 
 
