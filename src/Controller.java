@@ -173,26 +173,63 @@ public class Controller {
             System.out.println("Details found.");
             System.out.println(" ");
         }
+
+        // Get appointment date
         System.out.print("Enter the Day you want to add Appointment: ");
         String day = scanner.next();
         System.out.print("Enter the Month you want to add Appointment: ");
         String month = scanner.next();
         System.out.print("Enter the Year you want to add Appointment: ");
         String year = scanner.next();
+        Date appointmentDate = new Date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+
+        // Get appointment notes
         System.out.println("Enter any notes you want to add about your appointment below (if not enter 'No Notes'): ");
         String notes = scanner.next();
 
         // Check doctor availability and available slots
-        Date appointmentDate = new Date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
         boolean doctorAvailable = checkDoctorAvailability(selectedDoctor, appointmentDate);
         if (doctorAvailable){
             int slots = selectedDoctor.getSlots(appointmentDate);
             if (slots == -1){
                 System.out.println("No more slots available for that date.");
             }else if (slots<=10){
+                // Get appointment type
+                System.out.print("Is your appointment a general or referral appointment? (G/R): ");
+                String appointmentType = scanner.next();
                 String appointmentTime = String.format("%d : 00 PM",slots);
-                Appointment appointment = new Appointment(selectedDoctor, selectedPatient, notes, appointmentDate, appointmentTime);
-                selectedDoctor.setAppointments(appointment, appointmentDate);
+                while (true){
+                    if (Objects.equals(appointmentType, "G")){
+                        GeneralAppointment tempAppointment = new GeneralAppointment(selectedDoctor, selectedPatient, appointmentDate, appointmentTime, notes);
+//                      // upcast GeneralAppointment to its parent class 'Appointment'
+                        Appointment appointment = (Appointment) tempAppointment;
+                        selectedDoctor.setAppointments(appointment, appointmentDate);
+                        break;
+                    } else if (Objects.equals(appointmentType, "R")) {
+                        while (true){
+                            System.out.print("Enter Referral Doctors ID: ");
+                            int referralDoctorId = scanner.nextInt();
+                            System.out.println("Enter Referral Doctors notes: ");
+                            String referralNotes = scanner.next();
+
+                            Doctor referralDoctor = getDoctorByID(referralDoctorId);
+                            if (referralDoctor != null){
+                                ReferralAppointment tempAppointment = new ReferralAppointment(selectedDoctor, referralDoctor, selectedPatient, appointmentDate, appointmentTime, notes);
+                                tempAppointment.setReferralDoctorNotes(referralNotes);
+                                // upcast ReferralAppointment to its parent class 'Appointment' abd save upcasted object in a new variable 'appointment'
+                                Appointment appointment = (Appointment) tempAppointment;
+                                selectedDoctor.setAppointments(appointment, appointmentDate);
+                                break;
+                            } else {
+                                System.out.println("Invalid ID! No doctor found.");
+                            }
+                        }
+                        break;
+                    }else {
+                        System.out.println("Invalid input! Please enter 'G' for general appointment and 'R' for referral appointment");
+                    }
+                }
+
             }
         }else {
             System.out.println("Doctor not available on that date.");
