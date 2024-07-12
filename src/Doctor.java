@@ -3,8 +3,8 @@ import java.util.*;
 public class Doctor extends Person {
     private final int doctorId;
     private String specialization;
-    private final ArrayList<Date> availabilities;
-    private final HashMap<Date, ArrayList<Appointment>> appointments = new HashMap<>();
+    private ArrayList<Date> availabilities;
+    private HashMap<Date, ArrayList<Appointment>> appointments = new HashMap<>();
 
 
     public Doctor(int id,String name, String birthday, String specialization, String contactNumber){
@@ -14,6 +14,13 @@ public class Doctor extends Person {
         availabilities = new ArrayList<>();// each doctor has his own availability array
     }
 
+    public HashMap<Date, ArrayList<Appointment>> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(HashMap<Date, ArrayList<Appointment>> appointments) {
+        this.appointments = appointments;
+    }
 
     public int getDoctorId(){
         return this.doctorId;

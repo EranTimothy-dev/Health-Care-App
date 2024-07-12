@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Controller {
     static Scanner scanner = new Scanner(System.in);
-    static int userSelection;
     public static final ArrayList<Doctor> doctors = new ArrayList<>();
     public static final ArrayList<Patient> patients = new ArrayList<>();
 
@@ -45,11 +44,13 @@ public class Controller {
 
     public static void addDoctorAvailability() {
         while (true) {
+            scanner = new Scanner(System.in);
             System.out.print("Enter Doctors ID to add availability: ");
-            userSelection = scanner.nextInt();
+            int docID = scanner.nextInt();
+//            scanner.nextLine();
             Doctor selectedDoctor = null;
             for (Doctor doc : doctors) {
-                if (doc.getDoctorId() == userSelection) {
+                if (doc.getDoctorId() == docID) {
                     selectedDoctor = doc;
                 }
             }
@@ -154,9 +155,11 @@ public class Controller {
     }
 
     public static void bookAppointment(){
+        scanner = new Scanner(System.in);
         System.out.print("Enter Doctor's Id you want to make an appointment: ");
         int docId = scanner.nextInt();
-        System.out.print("Enter you patient's Id: ");
+        //scanner.nextLine();
+        System.out.print("Enter patient's Id: ");
         String patientId = scanner.next();
 
         Patient selectedPatient = getPatientByID(patientId);
@@ -194,11 +197,13 @@ public class Controller {
             if (slots == -1){
                 System.out.println("No more slots available for that date.");
             }else if (slots<=10){
-                // Get appointment type
-                System.out.print("Is your appointment a general or referral appointment? (G/R): ");
-                String appointmentType = scanner.next();
-                String appointmentTime = String.format("%d : 00 PM",slots);
                 while (true){
+                    // Get appointment type
+                    scanner = new Scanner(System.in);
+                    System.out.print("Is your appointment a general or referral appointment? (G/R): ");
+                    String appointmentType = scanner.next();
+                    String appointmentTime = String.format("%d : 00 PM",slots);
+
                     if (Objects.equals(appointmentType, "G")){
                         GeneralAppointment tempAppointment = new GeneralAppointment(selectedDoctor, selectedPatient, appointmentDate, appointmentTime, notes);
 //                      // upcast GeneralAppointment to its parent class 'Appointment'
@@ -236,6 +241,37 @@ public class Controller {
         }
     }
 
+    public static void viewAppointments(){
+        scanner = new Scanner(System.in);
+        System.out.print("Enter Doctors ID you want to view appointment: ");
+        int DoctorId = scanner.nextInt();
+        //scanner.nextLine();
+
+        Doctor selectedDoc = getDoctorByID(DoctorId);
+        if (selectedDoc != null){
+            int i = 1;
+            for (Map.Entry<Date,ArrayList<Appointment>> date : selectedDoc.getAppointments().entrySet()){
+                System.out.println(i + ". Appointments on " + date.getKey() + ": ");
+                for (Appointment appointments : date.getValue()){
+                    System.out.printf("""
+                             - Patient ID: %s
+                             - Patient Name: %s
+                             - Appointment Time: %s %n
+                             
+                             """
+                            , appointments.getPatient().getPatientId()
+                            , appointments.getPatient().getName()
+                            , appointments.getTime());
+                }
+                i++;
+
+            }
+            return;
+        }
+        System.out.println("Invalid Doctor ID! Doctor does not exist.");
+
+
+    }
 
 
 
