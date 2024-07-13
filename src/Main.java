@@ -6,7 +6,7 @@ public class Main {
     //    public static ArrayList<Doctor> doctors = new ArrayList<>();
 
 
-    public static void PatientMenu() throws InterruptedException {
+    public static void PatientMenu() {
         while(true){
             try {
                 System.out.println("""
@@ -41,7 +41,7 @@ public class Main {
     }
 
 
-    public static void HospitalAdministratorMenu() throws InterruptedException {
+    public static void HospitalAdministratorMenu() {
         while(true){
             try {
                 System.out.println("""
@@ -99,7 +99,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         // test data
 //        Doctor sampleDoc = new Doctor(223,"Saman Kumara","22.05.1987","Gynocologist","077-333-9900");
