@@ -36,7 +36,6 @@ public class Main {
                 }
             } catch (Exception e) {
                 System.out.println("Invalid Input!");
-                //scanner.nextLine(); // Clear input buffer
             }
         }
     }
@@ -66,7 +65,6 @@ public class Main {
                 }
             } catch (Exception e) {
                 System.out.println("Invalid Input!");
-                //scanner.next();// Clear input buffer
             }
         }
     }
@@ -104,10 +102,10 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         // test data
-        Doctor sampleDoc = new Doctor(223,"Saman Kumara","22.05.1987","Gynocologist","077-333-9900");
-        Patient samplePatient = new Patient( "Alice Johnson","T-12", "24/04/2003", "555-123-4567");
-        Controller.doctors.add(sampleDoc);
-        Controller.patients.add(samplePatient);
+//        Doctor sampleDoc = new Doctor(223,"Saman Kumara","22.05.1987","Gynocologist","077-333-9900");
+//        Patient samplePatient = new Patient( "Alice Johnson","T-12", "24/04/2003", "555-123-4567");
+//        Controller.doctors.add(sampleDoc);
+//        Controller.patients.add(samplePatient);
 
 
         while (true){

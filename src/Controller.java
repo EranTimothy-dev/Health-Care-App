@@ -44,7 +44,7 @@ public class Controller {
 
     public static void addDoctorAvailability() {
         while (true) {
-            scanner = new Scanner(System.in);
+            scanner = new Scanner(System.in); // Create new scanner to clear input buffer
             System.out.print("Enter Doctors ID to add availability: ");
             int docID = scanner.nextInt();
 //            scanner.nextLine();
@@ -96,7 +96,6 @@ public class Controller {
             i++;
         }
         System.out.print("Enter any value key to go back: ");
-//        String leave =
         scanner.nextLine();
         scanner.nextLine();
     }
@@ -155,7 +154,7 @@ public class Controller {
     }
 
     public static void bookAppointment(){
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in); // Create new scanner to clear input buffer
         System.out.print("Enter Doctor's Id you want to make an appointment: ");
         int docId = scanner.nextInt();
         //scanner.nextLine();
@@ -199,7 +198,7 @@ public class Controller {
             }else if (slots<=10){
                 while (true){
                     // Get appointment type
-                    scanner = new Scanner(System.in);
+                    scanner = new Scanner(System.in);// Create new scanner to clear input buffer
                     System.out.print("Is your appointment a general or referral appointment? (G/R): ");
                     String appointmentType = scanner.next();
                     String appointmentTime = String.format("%d : 00 PM",slots);
@@ -242,7 +241,7 @@ public class Controller {
     }
 
     public static void viewAppointments(){
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in); // Create new scanner to clear input buffer
         System.out.print("Enter Doctors ID you want to view appointment: ");
         int DoctorId = scanner.nextInt();
         //scanner.nextLine();
